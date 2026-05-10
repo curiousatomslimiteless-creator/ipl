@@ -1,602 +1,628 @@
-Here is an HTML document that simulates a complete 2026 IPL season, including a points table, today's match details, and season leaderboards.
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>IPL 2026 - Season Dashboard | Points Table, Today's Match & Stats</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>🏏 IPL Clash: Today's Match Predictor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+    }
 
-        body {
-            background: linear-gradient(145deg, #0a1a1f 0%, #0c2a2f 100%);
-            padding: 24px 20px;
-            color: #eef5ff;
-        }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0b2b1f 0%, #0a1f1a 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    /* main game card */
+    .game-container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 248, 225, 0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 3rem;
+      box-shadow: 0 30px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.3);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
 
-        /* header */
-        .ipl-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    /* IPL header */
+    .ipl-header {
+      background: linear-gradient(135deg, #1e3c2c 0%, #0e2a1c 100%);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid #f9b81b;
+    }
 
-        .ipl-header h1 {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #FFD966, #FF8C42, #F05454);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            letter-spacing: 1px;
-        }
+    .ipl-header h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .ipl-header p {
-            font-size: 1.2rem;
-            background: rgba(255,255,240,0.1);
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 60px;
-            backdrop-filter: blur(4px);
-            margin-top: 8px;
-        }
+    .ipl-header h1 span {
+      font-size: 2rem;
+    }
 
-        /* card grid */
-        .grid-2col {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
-            margin-bottom: 32px;
-        }
+    .today-badge {
+      background: #f9b81b;
+      color: #1e3c2c;
+      font-weight: bold;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-        .card {
-            background: rgba(10, 25, 30, 0.75);
-            backdrop-filter: blur(8px);
-            border-radius: 32px;
-            padding: 1.2rem 1.5rem 1.8rem;
-            border: 1px solid rgba(255, 200, 100, 0.25);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
-        }
+    /* match info area */
+    .match-info {
+      background: #2c1e12;
+      color: #FFE9C7;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid #5e3a2a;
+    }
 
-        .card:hover {
-            border-color: #ffb34760;
-            transform: translateY(-3px);
-        }
+    .date-box {
+      font-weight: 600;
+      background: #412e1f;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .card h2 {
-            font-size: 1.7rem;
-            border-left: 6px solid #ffaa33;
-            padding-left: 16px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .venue {
+      font-style: italic;
+      background: #1f2a1b;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+    }
 
-        .pts-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
+    /* team selection panel */
+    .selection-panel {
+      padding: 1.8rem 2rem;
+      background: #FFF9EF;
+      border-bottom: 1px dashed #e2cfb3;
+    }
 
-        .pts-table th, .pts-table td {
-            padding: 12px 8px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,215,150,0.2);
-        }
+    .choose-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #2b5e3b;
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+    }
 
-        .pts-table th {
-            color: #ffcd94;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
+    .team-selectors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.8rem;
+    }
 
-        .pts-table td:first-child, .pts-table th:first-child {
-            text-align: left;
-            font-weight: 600;
-        }
+    .selector {
+      flex: 1;
+      min-width: 200px;
+    }
 
-        .team-highlight {
-            background: #ffb34720;
-            border-radius: 20px;
-            font-weight: bold;
-        }
+    .selector label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #4a2e1e;
+      letter-spacing: -0.2px;
+    }
 
-        .match-card {
-            background: #071c20cc;
-            border-radius: 28px;
-            padding: 1rem;
-            margin-bottom: 20px;
-        }
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 60px;
+      border: 2px solid #e7cfa1;
+      background: white;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      outline: none;
+      transition: 0.2s;
+    }
 
-        .match-date {
-            font-size: 0.9rem;
-            color: #ffcd94;
-            background: #2c2c2c30;
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 30px;
-            margin-bottom: 12px;
-        }
+    select:focus {
+      border-color: #f9b81b;
+      box-shadow: 0 0 0 3px rgba(249,184,27,0.2);
+    }
 
-        .teams {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
+    button {
+      background: linear-gradient(95deg, #e67e22, #f39c12);
+      border: none;
+      padding: 12px 28px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border-radius: 60px;
+      color: #1e2a1c;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      box-shadow: 0 5px 0 #b45f1b;
+      transform: translateY(-2px);
+    }
 
-        .team {
-            flex: 1;
-            text-align: center;
-            background: #0a2025;
-            border-radius: 28px;
-            padding: 12px;
-        }
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #b45f1b;
+    }
 
-        .vs {
-            font-weight: bold;
-            font-size: 1.2rem;
-            background: #ffaa33;
-            color: #0a1a1f;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 100px;
-        }
+    /* result card */
+    .result-card {
+      background: #1e2a22;
+      margin: 0 1.8rem 1.8rem 1.8rem;
+      border-radius: 2rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: 0.2s;
+    }
 
-        .winner-badge {
-            margin-top: 16px;
-            background: #2e7d5e;
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+    .toss-winner {
+      background: #291f12;
+      border-radius: 2rem;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+      color: #FFDA9E;
+    }
 
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0 12px;
-        }
+    .match-headline {
+      font-size: 1.7rem;
+      font-weight: 800;
+      text-align: center;
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.8rem;
+    }
 
-        .stat-box {
-            background: #00000030;
-            border-radius: 24px;
-            padding: 12px 20px;
-            flex: 1;
-            text-align: center;
-            border-left: 4px solid #ffaa33;
-        }
+    .score-detail {
+      background: #2c3a2e;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #f5e7c8;
+    }
 
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #ffe2b5;
-        }
+    .winner-announce {
+      background: #00000030;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      padding: 12px;
+      border-radius: 3rem;
+      backdrop-filter: blur(4px);
+      color: #ffd966;
+    }
 
-        .all-matches-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 6px;
-        }
+    /* reset style */
+    .footer-note {
+      text-align: center;
+      padding: 1rem 1rem 1.5rem;
+      font-size: 0.7rem;
+      color: #6f5e48;
+    }
 
-        .match-row {
-            display: flex;
-            justify-content: space-between;
-            background: #0e262c;
-            margin-bottom: 10px;
-            padding: 10px 16px;
-            border-radius: 60px;
-            font-size: 0.8rem;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .toss-win {
-            color: #ffbc6e;
-            font-weight: 500;
-        }
-
-        .six-count {
-            font-weight: bold;
-            color: #ff7b2c;
-        }
-
-        .badge {
-            background: #f3a68330;
-            border-radius: 40px;
-            padding: 3px 10px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a3b3f;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #ffaa66;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 880px) {
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            .teams {
-                flex-direction: column;
-            }
-            .vs {
-                margin: 8px 0;
-            }
-            .stat-value {
-                font-size: 1.5rem;
-            }
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-    </style>
+    @media (max-width: 580px) {
+      .game-container {
+        border-radius: 1.8rem;
+      }
+      .match-headline {
+        font-size: 1.2rem;
+      }
+      .selection-panel {
+        padding: 1.2rem;
+      }
+      .result-card {
+        margin: 0 1rem 1.5rem 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <div class="ipl-header">
-        <h1>🏆 TATA IPL 2026 🏆</h1>
-        <p>🔥 Season Leaders | Today's Clash | Full Match Summary 🔥</p>
+<div class="game-container">
+  <div class="ipl-header">
+    <h1>
+      <span>🏆</span> IPL CHALLENGE <span>⚡</span>
+    </h1>
+    <div class="today-badge">
+      📅 TODAY'S PREDICTION • CHOOSE & WIN
     </div>
+  </div>
 
-    <div class="grid-2col">
-        <!-- POINTS TABLE -->
-        <div class="card">
-            <h2>📊 POINTS TABLE</h2>
-            <table class="pts-table" id="pointsTable">
-                <thead>
-                <tr><th>Team</th><th>M</th><th>W</th><th>L</th><th>NR</th><th>Pts</th><th>NRR</th></tr>
-                </thead>
-                <tbody id="pointsTbody"></tbody>
-            </table>
-        </div>
-
-        <!-- TODAY'S MATCH + TOSS + WINNER -->
-        <div class="card">
-            <h2>⚡ TODAY'S MATCH · 08 MAY 2026</h2>
-            <div id="todaysMatchContainer"></div>
-            <div class="stats-row" style="margin-top: 12px;">
-                <div class="stat-box"><span>🏏 MOST SIXES</span><div class="stat-value" id="mostSixesStat">—</div></div>
-                <div class="stat-box"><span>🏃 MOST RUNS</span><div class="stat-value" id="mostRunsStat">—</div></div>
-                <div class="stat-box"><span>🥈 2nd IN GAME</span><div class="stat-value" id="secondInGame">—</div></div>
-            </div>
-        </div>
+  <div class="match-info">
+    <div class="date-box">
+      📍 <span id="displayDate"></span>
     </div>
-
-    <!-- SEASON LEADERS & ALL MATCH LIST -->
-    <div class="card" style="margin-bottom: 28px;">
-        <h2>🏅 SEASON MASTERS — Most Sixes, Most Runs & All Match Logs</h2>
-        <div class="stats-row" style="justify-content: flex-start; gap: 28px;">
-            <div><span style="font-weight: 300">🔥 Most Sixes overall</span><br><span style="font-size: 1.9rem; font-weight: bold;" id="seasonMostSixesPlayer">—</span> <span id="seasonSixCount"></span></div>
-            <div><span style="font-weight: 300">⚡ Most Runs overall</span><br><span style="font-size: 1.9rem; font-weight: bold;" id="seasonMostRunsPlayer">—</span> <span id="seasonRunsCount"></span></div>
-        </div>
-        <div style="margin-top: 18px;">
-            <h3 style="font-size: 1.2rem; margin-bottom: 12px;">📅 ALL MATCHES · 2026 SEASON (Date, Toss, Winner, Sixes)</h3>
-            <div class="all-matches-list" id="allMatchesList"></div>
-        </div>
+    <div class="venue">
+      🏟️ Narendra Modi Stadium • Ahmedabad
     </div>
-    <footer>IPL 2026 official simulation • Stats based on real-time performance • Toss & winner updated</footer>
+  </div>
+
+  <div class="selection-panel">
+    <div class="choose-title">
+      🎯 PICK YOUR WARRIORS
+      <span style="font-size: 0.9rem;">👇</span>
+    </div>
+    <div class="team-selectors">
+      <div class="selector">
+        <label>🏏 TEAM A (HOME / YOUR PICK 1)</label>
+        <select id="teamA">
+          <option value="MI">Mumbai Indians 🦁</option>
+          <option value="CSK">Chennai Super Kings 🦁</option>
+          <option value="RCB">Royal Challengers Bangalore 🦅</option>
+          <option value="KKR">Kolkata Knight Riders 🟣</option>
+          <option value="SRH">Sunrisers Hyderabad 🧡</option>
+          <option value="RR" selected>Rajasthan Royals 💗</option>
+          <option value="DC">Delhi Capitals 💙</option>
+          <option value="PBKS">Punjab Kings 🔴</option>
+          <option value="LSG">Lucknow Super Giants 🔵</option>
+          <option value="GT">Gujarat Titans 💛</option>
+        </select>
+      </div>
+      <div class="selector">
+        <label>⚔️ TEAM B (AWAY / YOUR PICK 2)</label>
+        <select id="teamB">
+          <option value="MI">Mumbai Indians 🦁</option>
+          <option value="CSK">Chennai Super Kings 🦁</option>
+          <option value="RCB">Royal Challengers Bangalore 🦅</option>
+          <option value="KKR">Kolkata Knight Riders 🟣</option>
+          <option value="SRH">Sunrisers Hyderabad 🧡</option>
+          <option value="RR">Rajasthan Royals 💗</option>
+          <option value="DC">Delhi Capitals 💙</option>
+          <option value="PBKS">Punjab Kings 🔴</option>
+          <option value="LSG" selected>Lucknow Super Giants 🔵</option>
+          <option value="GT">Gujarat Titans 💛</option>
+        </select>
+      </div>
+    </div>
+    <button id="simulateBtn">🔥 PREDICT TODAY'S MATCH WINNER 🔥</button>
+  </div>
+
+  <div id="resultArea" class="result-card">
+    <div class="toss-winner" id="tossMessage">
+      🎲 Click "PREDICT" to start the toss & simulation
+    </div>
+    <div class="match-headline" id="matchTitle">
+      ⚡ WHO TAKES THE TROPHY TODAY? ⚡
+    </div>
+    <div class="score-detail" id="scoreDetails">
+      🏏 Match score will appear here
+    </div>
+    <div id="winnerMessage" class="winner-announce">
+      👑 Choose your teams and hit predict 👑
+    </div>
+  </div>
+  <div class="footer-note">
+    💡 IPL 2026 • Simulated cricket engine (T20 style) • Dynamic toss + real match outcome
+  </div>
 </div>
 
 <script>
-    // ----------------------------- IPL 2026 DATA (Full Season Simulation) ---------------------------------
-    const teams = [
-        { name: "CSK", short: "Chennai Super Kings" },
-        { name: "MI", short: "Mumbai Indians" },
-        { name: "RCB", short: "Royal Challengers Bengaluru" },
-        { name: "KKR", short: "Kolkata Knight Riders" },
-        { name: "RR", short: "Rajasthan Royals" },
-        { name: "SRH", short: "Sunrisers Hyderabad" },
-        { name: "LSG", short: "Lucknow Super Giants" },
-        { name: "GT", short: "Gujarat Titans" }
-    ];
-    const teamCodes = teams.map(t => t.name);
+  // ------------------- Team Database with full names, emojis, and batting strength ------
+  const TEAMS_DATA = {
+    MI: { full: "Mumbai Indians", emoji: "🦁", strength: 88, power: 92 },
+    CSK: { full: "Chennai Super Kings", emoji: "🦁", strength: 86, power: 90 },
+    RCB: { full: "Royal Challengers Bangalore", emoji: "🦅", strength: 87, power: 94 },
+    KKR: { full: "Kolkata Knight Riders", emoji: "🟣", strength: 84, power: 88 },
+    SRH: { full: "Sunrisers Hyderabad", emoji: "🧡", strength: 83, power: 85 },
+    RR: { full: "Rajasthan Royals", emoji: "💗", strength: 85, power: 89 },
+    DC: { full: "Delhi Capitals", emoji: "💙", strength: 84, power: 87 },
+    PBKS: { full: "Punjab Kings", emoji: "🔴", strength: 82, power: 86 },
+    LSG: { full: "Lucknow Super Giants", emoji: "🔵", strength: 86, power: 88 },
+    GT: { full: "Gujarat Titans", emoji: "💛", strength: 87, power: 91 }
+  };
 
-    // ---------- helper: random winner & toss, sixes, runs ----------
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+  // Helper to get full team info
+  function getTeamInfo(teamCode) {
+    return TEAMS_DATA[teamCode] || { full: teamCode, emoji: "🏏", strength: 80, power: 80 };
+  }
+
+  // Display current date: "Sunday, 10 May 2026" style
+  function setTodaysDate() {
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formatted = today.toLocaleDateString('en-IN', options);
+    document.getElementById('displayDate').innerHTML = `📅 ${formatted}`;
+  }
+
+  // Simulate toss winner (returns team object with code and info)
+  function simulateToss(teamACode, teamBCode, teamAInfo, teamBInfo) {
+    const tossWinnerCode = Math.random() < 0.5 ? teamACode : teamBCode;
+    const tossWinnerInfo = tossWinnerCode === teamACode ? teamAInfo : teamBInfo;
+    // decision: bat or bowl? 60% bowl first in T20 mentality? but add randomness.
+    const decision = Math.random() < 0.55 ? "bowl first" : "bat first";
+    let decisionText = "";
+    if (decision === "bat first") {
+      decisionText = ` elected to BAT first 💥`;
+    } else {
+      decisionText = ` elected to BOWL first 🎯`;
     }
+    return { winnerCode: tossWinnerCode, winnerInfo: tossWinnerInfo, decision, decisionText };
+  }
 
-    function generateMatch(date, teamA, teamB, matchIdx) {
-        // toss winner random between A and B
-        const tossWinner = Math.random() < 0.5 ? teamA : teamB;
-        // winner random but slightly skewed to make table interesting (not always 50%)
-        let winner;
-        let randomFactor = Math.random();
-        if (randomFactor < 0.45) winner = teamA;
-        else if (randomFactor < 0.9) winner = teamB;
-        else winner = Math.random() < 0.5 ? teamA : teamB; // edge case both
+  // generate realistic T20 innings (runs, wickets, balls 120)
+  function generateInnings(battingTeamCode, bowlingTeamCode, battingInfo, bowlingInfo, target = null, isChasing = false) {
+    // batting strength = base strength + slight rand
+    let battingStrength = battingInfo.strength + (Math.random() * 8 - 2);
+    let bowlingStrength = bowlingInfo.power + (Math.random() * 7 - 2);
+    
+    // dynamic run rate factor: scale 4.5 to 10.5 runs per over on average
+    let baseRunFactor = (battingStrength / 85) * (1 + (Math.random() * 0.2 - 0.1));
+    let runsPerBall = 0.5 + (baseRunFactor * 0.75);
+    runsPerBall = Math.min(1.1, Math.max(0.4, runsPerBall));
+    
+    let totalRuns = 0;
+    let wickets = 0;
+    let balls = 0;
+    const maxBalls = 120;
+    
+    // chasing dynamics: aggressive if required rate high
+    let aggressionBoost = 1.0;
+    if (isChasing && target !== null) {
+      let requiredRate = (target - 0) / 20; // per over approx
+      if (requiredRate > 9) aggressionBoost = 1.18;
+      else if (requiredRate > 8) aggressionBoost = 1.08;
+    }
+    
+    while (balls < maxBalls && wickets < 10) {
+      let outcomeRand = Math.random();
+      let wicketChance = 0.12 / (battingStrength / 80) * (bowlingStrength / 85);
+      wicketChance = Math.min(0.22, Math.max(0.05, wicketChance));
+      if (aggressionBoost > 1.05) wicketChance += 0.02;
+      
+      if (outcomeRand < wicketChance) {
+        wickets++;
+      } else {
+        let runs = 0;
+        let runRand = Math.random();
+        if (runRand < 0.55) runs = 1;
+        else if (runRand < 0.75) runs = 2;
+        else if (runRand < 0.88) runs = 4;
+        else if (runRand < 0.96) runs = 6;
+        else runs = 0;
+        // apply aggression: more boundaries if chasing high target
+        if (aggressionBoost > 1.1 && runs < 3 && Math.random() < 0.3) runs = 4;
+        totalRuns += runs;
+      }
+      balls++;
+      // if chasing and target achieved, break early
+      if (isChasing && target !== null && totalRuns >= target) break;
+    }
+    // if target reached exactly
+    if (isChasing && target !== null && totalRuns >= target) {
+      // winning condition
+      return { runs: totalRuns, wickets, balls, completed: true, achievedTarget: true };
+    }
+    let overs = Math.floor(balls / 6);
+    let remBalls = balls % 6;
+    return { runs: totalRuns, wickets, balls, overs, remBalls, completed: !isChasing || totalRuns < target, achievedTarget: isChasing && totalRuns >= target };
+  }
 
-        // total sixes in match (teamA sixes + teamB sixes)
-        const sixesA = getRandomInt(4, 18);
-        const sixesB = getRandomInt(3, 17);
-        const totalSixes = sixesA + sixesB;
-        // runs scored by each team
-        const runsA = getRandomInt(140, 230);
-        const runsB = getRandomInt(135, 225);
-        // "most sixes in match" individual player name (we'll assign random star)
-        const batsmenSixesList = ["Virat Kohli", "Rohit Sharma", "MS Dhoni", "Jos Buttler", "Shubman Gill", "Heinrich Klaasen", "Nicholas Pooran", "Rinku Singh", "Travis Head", "Ruturaj Gaikwad"];
-        const mostSixesPlayer = batsmenSixesList[Math.floor(Math.random() * batsmenSixesList.length)];
-        const mostSixesCount = getRandomInt(3, 9);
-        // most runs in match individual
-        const mostRunsPlayer = batsmenSixesList[Math.floor(Math.random() * batsmenSixesList.length)];
-        const mostRunsCount = getRandomInt(58, 112);
-        // second in game: runner-up team -> the team which lost (if winner = teamA -> runner=teamB else teamA)
-        const runnerUp = winner === teamA ? teamB : teamA;
-        
-        return {
-            date: date,
-            teamA, teamB,
-            tossWinner,
-            winner,
-            totalSixes: totalSixes,
-            mostSixesPlayer: mostSixesPlayer,
-            mostSixesCount: mostSixesCount,
-            mostRunsPlayer: mostRunsPlayer,
-            mostRunsCount: mostRunsCount,
-            runnerUp: runnerUp,
-            runsA, runsB
+  // full match simulation and return comprehensive result object
+  function simulateMatch(teamACode, teamBCode) {
+    const teamAObj = getTeamInfo(teamACode);
+    const teamBObj = getTeamInfo(teamBCode);
+    
+    // 1. TOSS
+    const toss = simulateToss(teamACode, teamBCode, teamAObj, teamBObj);
+    
+    let firstInningsTeam, secondInningsTeam, firstInfo, secondInfo;
+    let firstBattingCode, secondBattingCode;
+    let tossWinnerCode = toss.winnerCode;
+    
+    // determine batting order based on toss decision
+    if (toss.decision === "bat first") {
+      // toss winner bats first
+      firstBattingCode = tossWinnerCode;
+      firstInningsTeam = firstBattingCode === teamACode ? teamAObj : teamBObj;
+      firstInfo = firstInningsTeam;
+      secondBattingCode = firstBattingCode === teamACode ? teamBCode : teamACode;
+      secondInningsTeam = secondBattingCode === teamACode ? teamAObj : teamBObj;
+    } else {
+      // bowl first -> toss winner bowls, so opponent bats first
+      firstBattingCode = tossWinnerCode === teamACode ? teamBCode : teamACode;
+      firstInningsTeam = firstBattingCode === teamACode ? teamAObj : teamBObj;
+      firstInfo = firstInningsTeam;
+      secondBattingCode = tossWinnerCode;
+      secondInningsTeam = secondBattingCode === teamACode ? teamAObj : teamBObj;
+    }
+    
+    const bowlingFirstCode = secondBattingCode;
+    const bowlingFirstInfo = getTeamInfo(bowlingFirstCode);
+    
+    // first innings
+    const innings1 = generateInnings(firstBattingCode, bowlingFirstCode, firstInfo, bowlingFirstInfo, null, false);
+    const target = innings1.runs + 1;
+    
+    // second innings: chasing team = secondBattingCode, bowling team = firstBattingCode
+    const bowlingSecondInfo = firstInfo;
+    const innings2 = generateInnings(secondBattingCode, firstBattingCode, secondInningsTeam, bowlingSecondInfo, target, true);
+    
+    let matchWinnerCode = null;
+    let winMargin = "";
+    let isSuperOver = false;
+    if (innings2.achievedTarget) {
+      matchWinnerCode = secondBattingCode;
+      let wicketsLost = innings2.wickets;
+      let ballsLeft = 120 - innings2.balls;
+      let oversLeft = Math.floor(ballsLeft / 6);
+      let remBallLeft = ballsLeft % 6;
+      if (ballsLeft > 0) {
+        winMargin = `${wicketsLost} wickets (${oversLeft}.${remBallLeft} overs remaining)`;
+      } else {
+        winMargin = `${wicketsLost} wickets (with 0 balls left) 🎉`;
+      }
+    } else {
+      // first innings team wins
+      matchWinnerCode = firstBattingCode;
+      let winByRuns = innings1.runs - innings2.runs;
+      winMargin = `${winByRuns} runs`;
+    }
+    
+    // adding small super over edge? not needed for clarity, but remove tie possibility by adjusting but if exact tie score:
+    if (!innings2.achievedTarget && innings2.runs === innings1.runs && innings2.wickets < 10) {
+      // tie condition improbable but handle: first innings win as per rule? but we convert to tiebreaker
+      // small patch: second team achieved target on equal runs? but false, so tie : make super over result
+      // for fun: simulate super over edge:
+      matchWinnerCode = Math.random() < 0.5 ? firstBattingCode : secondBattingCode;
+      winMargin = `SUPER OVER! 🎆 ${matchWinnerCode === firstBattingCode ? getTeamInfo(firstBattingCode).full : getTeamInfo(secondBattingCode).full} wins the thriller`;
+      isSuperOver = true;
+    }
+    
+    const winnerObj = getTeamInfo(matchWinnerCode);
+    
+    // prepare fancy scores
+    function formatInningString(teamCode, runs, wickets, balls, isFirst) {
+      const oversVal = Math.floor(balls / 6);
+      const ballRem = balls % 6;
+      const teamInfoShort = getTeamInfo(teamCode);
+      return `${teamInfoShort.full} ${teamInfoShort.emoji} : ${runs}/${wickets} (${oversVal}.${ballRem} overs)`;
+    }
+    
+    let firstInningDisplay = formatInningString(firstBattingCode, innings1.runs, innings1.wickets, innings1.balls, true);
+    let secondInningDisplay = formatInningString(secondBattingCode, innings2.runs, innings2.wickets, innings2.balls, false);
+    
+    return {
+      teamA: teamACode,
+      teamB: teamBCode,
+      teamAName: teamAObj.full,
+      teamBName: teamBObj.full,
+      tossWinnerCode: toss.winnerCode,
+      tossWinnerName: toss.winnerInfo.full,
+      tossDecision: toss.decisionText,
+      firstInnings: { teamCode: firstBattingCode, runs: innings1.runs, wickets: innings1.wickets, balls: innings1.balls, display: firstInningDisplay },
+      secondInnings: { teamCode: secondBattingCode, runs: innings2.runs, wickets: innings2.wickets, balls: innings2.balls, display: secondInningDisplay, target: target },
+      winnerCode: matchWinnerCode,
+      winnerName: winnerObj.full,
+      winnerEmoji: winnerObj.emoji,
+      winMargin: winMargin,
+      isSuperOver: isSuperOver
+    };
+  }
+  
+  // render the UI with fresh simulation data
+  function runPrediction() {
+    const teamACode = document.getElementById("teamA").value;
+    const teamBCode = document.getElementById("teamB").value;
+    
+    // prevent choosing same team?
+    if (teamACode === teamBCode) {
+      // show friendly error in result area
+      document.getElementById("tossMessage").innerHTML = "⚠️ SAME TEAM SELECTION ⚠️";
+      document.getElementById("matchTitle").innerHTML = "🔥 PICK TWO DIFFERENT TEAMS 🔥";
+      document.getElementById("scoreDetails").innerHTML = "🏏 Cannot play match against itself. Choose rival teams!";
+      document.getElementById("winnerMessage").innerHTML = "👑 Select different IPL giants and PREDICT again 👑";
+      return;
+    }
+    
+    const result = simulateMatch(teamACode, teamBCode);
+    
+    // toss message
+    const tossElem = document.getElementById("tossMessage");
+    tossElem.innerHTML = `🎲 TOSS WINNER: ${result.tossWinnerName} ${getTeamInfo(result.tossWinnerCode).emoji} • ${result.tossDecision}`;
+    
+    // match headline
+    document.getElementById("matchTitle").innerHTML = `🏆 ${getTeamInfo(teamACode).full} 🆚 ${getTeamInfo(teamBCode).full} 🏆`;
+    
+    // detailed scores
+    let targetMsg = "";
+    if (result.secondInnings.target) {
+      targetMsg = `Target: ${result.secondInnings.target - 1} runs to win`;
+    }
+    const scoreHtml = `
+      <strong>📊 FIRST INNINGS</strong><br> ${result.firstInnings.display}<br><br>
+      <strong>⚡ SECOND INNINGS</strong><br> ${result.secondInnings.display}<br>
+      ${targetMsg ? `<span style="font-size:0.9rem;">🎯 ${targetMsg}</span><br>` : ""}
+    `;
+    document.getElementById("scoreDetails").innerHTML = scoreHtml;
+    
+    // winner message animated
+    const winnerDiv = document.getElementById("winnerMessage");
+    winnerDiv.innerHTML = `🏆 MATCH WINNER: ${result.winnerName} ${result.winnerEmoji} 🏆<br> <span style="font-size:0.9rem;">🏅 by ${result.winMargin}</span>`;
+    
+    // subtle animation effect : border glow
+    const resultCard = document.querySelector(".result-card");
+    resultCard.style.transition = "0.2s";
+    resultCard.style.boxShadow = "0 0 0 2px #f9b81b, 0 8px 25px black";
+    setTimeout(() => {
+      resultCard.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2)";
+    }, 800);
+  }
+  
+  // add event listeners and also random interesting "Today's special" prefill? ensure date & optional welcome
+  window.addEventListener("DOMContentLoaded", () => {
+    setTodaysDate();
+    const simulateBtn = document.getElementById("simulateBtn");
+    simulateBtn.addEventListener("click", runPrediction);
+    
+    // optional: set a default matchup "RR vs LSG" attractive (pre-selected in HTML: RR + LSG as per default values "RR" and "LSG")
+    // run initial placeholder simulation just to show welcome (but dont auto run to avoid overeager)
+    // but to fill some dynamic preview, call a friendly blank simulate only if both teams valid
+    // we just display initial teaser, but we keep welcome message as is, user will click predict.
+    // manual first simulation: not needed but gives a sneak peek? i'll run a demo simulation after 0.2sec if both default teams differ?
+    const teamA = document.getElementById("teamA").value;
+    const teamB = document.getElementById("teamB").value;
+    if (teamA !== teamB) {
+      setTimeout(() => {
+        // Nice surprise: show a sample prediction after 0.4 seconds but only if user hasn't clicked yet (graceful)
+        // but we call it once to show initial excitement. if user interacted quickly, no harm.
+        // we call only once, but avoid conflict if they click immediately. but fine.
+        const initialRun = () => {
+          if (!window._simulatedOnce) {
+            runPrediction();
+            window._simulatedOnce = true;
+          }
         };
-    }
-
-    // season match schedule (74 matches total we'll simulate 56 for realistic compact view, but full schedule 14 matches per team? 
-    // Let's make 56 matches (each team plays 14 matches) -> double round robin 56 matches. But for readable UI we generate all.
-    // We'll generate round robin home&away: 56 matches. Full match list for 2026.
-    let allMatches = [];
-    let matchId = 0;
-    // double round robin: each pair twice
-    for (let i = 0; i < teamCodes.length; i++) {
-        for (let j = i+1; j < teamCodes.length; j++) {
-            // first leg
-            let date1 = `2026-03-${15 + (matchId % 20)}`;
-            let m1 = generateMatch(date1, teamCodes[i], teamCodes[j], matchId++);
-            allMatches.push(m1);
-            // second leg
-            let date2 = `2026-04-${5 + (matchId % 25)}`;
-            let m2 = generateMatch(date2, teamCodes[j], teamCodes[i], matchId++);
-            allMatches.push(m2);
+        initialRun();
+      }, 200);
+    } else {
+      // if same teams not possible cause dropdown distinct but default safe: RR and LSG so different.
+      setTimeout(() => {
+        if (!window._simulatedOnce) {
+          runPrediction();
+          window._simulatedOnce = true;
         }
+      }, 150);
     }
-    // Add few extra playoffs? but keep simple league stage. allMatches length = 56 matches exactly (8 teams -> 28 double = 56)
-    // Sort by date (makes logical)
-    allMatches.sort((a,b) => new Date(a.date) - new Date(b.date));
-
-    // ----- calculate points table -----
-    let pointsMap = new Map();
-    teamCodes.forEach(team => {
-        pointsMap.set(team, { played: 0, wins: 0, losses: 0, nr: 0, pts: 0, nrr: 0 });
-    });
-    // compute stats from matches (real)
-    allMatches.forEach(match => {
-        const winner = match.winner;
-        const loser = match.winner === match.teamA ? match.teamB : match.teamA;
-        let teamAstat = pointsMap.get(match.teamA);
-        let teamBstat = pointsMap.get(match.teamB);
-        teamAstat.played += 1;
-        teamBstat.played += 1;
-        if (winner === match.teamA) {
-            teamAstat.wins += 1;
-            teamBstat.losses += 1;
-            teamAstat.pts += 2;
-        } else if (winner === match.teamB) {
-            teamBstat.wins += 1;
-            teamAstat.losses += 1;
-            teamBstat.pts += 2;
-        } else {
-            // no tie, random winner always defined, but still for safety
-        }
-        // random NRR simulation (range -0.8 to +1.2) for realistic effect
-        let nrrA = (Math.random() * 1.5 - 0.6).toFixed(2);
-        let nrrB = (Math.random() * 1.5 - 0.6).toFixed(2);
-        teamAstat.nrr = (parseFloat(teamAstat.nrr) + parseFloat(nrrA)).toFixed(2);
-        teamBstat.nrr = (parseFloat(teamBstat.nrr) + parseFloat(nrrB)).toFixed(2);
-    });
-    // convert pointsMap to array and sort
-    let pointsArray = [];
-    for (let [team, stat] of pointsMap.entries()) {
-        pointsArray.push({
-            team: team,
-            fullName: teams.find(t => t.name === team).short,
-            played: stat.played,
-            wins: stat.wins,
-            losses: stat.losses,
-            nr: stat.nr,
-            pts: stat.pts,
-            nrr: parseFloat(stat.nrr).toFixed(2)
-        });
-    }
-    pointsArray.sort((a,b) => {
-        if (a.pts !== b.pts) return b.pts - a.pts;
-        return parseFloat(b.nrr) - parseFloat(a.nrr);
-    });
-
-    // Render Points Table
-    const pointsTbody = document.getElementById("pointsTbody");
-    pointsArray.forEach(teamStat => {
-        const row = pointsTbody.insertRow();
-        row.insertCell(0).innerHTML = `<span style="display:flex;align-items:center;gap:6px">🏏 ${teamStat.team}</span>`;
-        row.insertCell(1).innerText = teamStat.played;
-        row.insertCell(2).innerText = teamStat.wins;
-        row.insertCell(3).innerText = teamStat.losses;
-        row.insertCell(4).innerText = teamStat.nr;
-        row.insertCell(5).innerText = teamStat.pts;
-        row.insertCell(6).innerText = teamStat.nrr;
-    });
-
-    // TODAY'S MATCH: pick a match from allMatches that has date 2026-05-08 (or closest)
-    let todayMatch = allMatches.find(m => m.date === "2026-05-08");
-    if (!todayMatch) {
-        // override: force create a marquee match for 8th may
-        todayMatch = {
-            date: "2026-05-08",
-            teamA: "MI",
-            teamB: "CSK",
-            tossWinner: "CSK",
-            winner: "MI",
-            totalSixes: 21,
-            mostSixesPlayer: "Rohit Sharma",
-            mostSixesCount: 7,
-            mostRunsPlayer: "Suryakumar Yadav",
-            mostRunsCount: 89,
-            runnerUp: "CSK",
-            runsA: 198,
-            runsB: 185
-        };
-    }
-    // additionally fill match container
-    function renderTodayMatch(match) {
-        const container = document.getElementById("todaysMatchContainer");
-        const winnerText = match.winner === match.teamA ? match.teamA : match.teamB;
-        const tossText = `Toss won by ${match.tossWinner} & elected to ${Math.random()<0.5?"bat":"bowl first"}`;
-        container.innerHTML = `
-            <div class="match-card">
-                <div class="match-date">📆 ${match.date} · ELIMINATOR ✨</div>
-                <div class="teams">
-                    <div class="team"><span style="font-size:1.8rem;">🏏</span><br><strong>${match.teamA}</strong><br>${match.runsA || 192}/${Math.floor(Math.random()*6)+3}</div>
-                    <div class="vs">VS</div>
-                    <div class="team"><span style="font-size:1.8rem;">🏏</span><br><strong>${match.teamB}</strong><br>${match.runsB || 180}/${Math.floor(Math.random()*7)+4}</div>
-                </div>
-                <div style="margin-top: 14px;">
-                    <div>🏆 <strong>WINNER: ${winnerText}</strong> (by ${Math.abs((match.runsA||192)-(match.runsB||180))} runs)</div>
-                    <div>🎲 ${tossText}</div>
-                    <div class="winner-badge">🔥 Man of the Match: ${match.mostRunsPlayer} (${match.mostRunsCount} runs & 3 catches)</div>
-                </div>
-            </div>
-        `;
-        // fill dynamically today's sixes/runs/second smallest
-        document.getElementById("mostSixesStat").innerHTML = `${match.mostSixesPlayer} (${match.mostSixesCount} sixes)`;
-        document.getElementById("mostRunsStat").innerHTML = `${match.mostRunsPlayer} (${match.mostRunsCount} runs)`;
-        document.getElementById("secondInGame").innerHTML = `${match.runnerUp}`;
-    }
-    renderTodayMatch(todayMatch);
-
-    // ----- SEASON WIDE STATS: Most sixes overall, Most runs overall, second in game leader?
-    // Aggregating over all matches: get most sixes hitter (max individual match sixes aggregated? but semi)
-    // For better UX: create season aggregate stats: total sixes per player (mock)
-    let sixesPlayerMap = new Map();
-    let runsPlayerMap = new Map();
-    allMatches.forEach(m => {
-        let sixPlayer = m.mostSixesPlayer;
-        let sixCount = m.mostSixesCount;
-        sixesPlayerMap.set(sixPlayer, (sixesPlayerMap.get(sixPlayer) || 0) + sixCount);
-        let runsPlayer = m.mostRunsPlayer;
-        let runsCount = m.mostRunsCount;
-        runsPlayerMap.set(runsPlayer, (runsPlayerMap.get(runsPlayer) || 0) + runsCount);
-    });
-    let topSixes = { player: "", sixes: 0 };
-    for (let [player, total] of sixesPlayerMap.entries()) {
-        if (total > topSixes.sixes) { topSixes.player = player; topSixes.sixes = total; }
-    }
-    let topRuns = { player: "", runs: 0 };
-    for (let [player, total] of runsPlayerMap.entries()) {
-        if (total > topRuns.runs) { topRuns.player = player; topRuns.runs = total; }
-    }
-    document.getElementById("seasonMostSixesPlayer").innerText = topSixes.player;
-    document.getElementById("seasonSixCount").innerHTML = `🏆 ${topSixes.sixes} sixes`;
-    document.getElementById("seasonMostRunsPlayer").innerText = topRuns.player;
-    document.getElementById("seasonRunsCount").innerHTML = `🏏 ${topRuns.runs} runs`;
-
-    // "who second in game" -> most runner-up appearances? (team who lost final? but we can show team who most often lost close matches)
-    // Let's define "second in game" as the team with most runner-up finishes in matches (most losses close margin) but simple: team with highest losses? but more fun -> most "runnerUp" in matches
-    let runnerUpCount = new Map();
-    allMatches.forEach(m => { runnerUpCount.set(m.runnerUp, (runnerUpCount.get(m.runnerUp) || 0) + 1); });
-    let maxRunner = { team: "", count: 0 };
-    for (let [tm, cnt] of runnerUpCount.entries()) {
-        if (cnt > maxRunner.count) { maxRunner.team = tm; maxRunner.count = cnt; }
-    }
-    document.getElementById("secondInGame").innerHTML = `${maxRunner.team} (runner-up ${maxRunner.count} times)`;
-    // but we also need second in game in top right corner? Already updated. plus today second is fixed.
-    // Also update the today match second in game shown separately but we already update inside most runs row.
-
-    // ----- ALL MATCH LIST (complete with toss, winner, sixes, date) -----
-    const allMatchesDiv = document.getElementById("allMatchesList");
-    allMatches.forEach((match, idx) => {
-        const matchItem = document.createElement("div");
-        matchItem.className = "match-row";
-        matchItem.innerHTML = `
-            <span style="min-width: 90px;">📅 ${match.date}</span>
-            <span><strong>${match.teamA}</strong> vs <strong>${match.teamB}</strong></span>
-            <span class="toss-win">🎲 Toss: ${match.tossWinner}</span>
-            <span>🏆 Winner: ${match.winner}</span>
-            <span class="six-count">💥 ${match.totalSixes} sixes</span>
-            <span class="badge">🔥 Most sixes: ${match.mostSixesPlayer} (${match.mostSixesCount})</span>
-            <span>🏃 Most runs: ${match.mostRunsPlayer} (${match.mostRunsCount})</span>
-        `;
-        allMatchesDiv.appendChild(matchItem);
-    });
-
-    // Additional: also make sure today match toggle consistency 
-    // show second in game in top summary (already inside stat-box we used "second in game" representing runner-up team of the day)
-    // but we also want "who secord in game usue html" could be runner-up of season OR today runner-up. We already display today runner-up and also season runner-up most times. So user sees both.
-    // we can also write a note: season "second-in-game" most runner-up finishes.
-    const secondGameSeasonEl = document.createElement("div");
-    secondGameSeasonEl.style.marginTop = "8px";
-    secondGameSeasonEl.style.fontSize = "0.75rem";
-    secondGameSeasonEl.style.backgroundColor = "#00000030";
-    secondGameSeasonEl.style.borderRadius = "20px";
-    secondGameSeasonEl.style.padding = "6px 12px";
-    secondGameSeasonEl.innerHTML = `🏅 Season "Second In Game" (most runner-up finishes): ${maxRunner.team} (${maxRunner.count} matches as runner-up)`;
-    document.getElementById("todaysMatchContainer").appendChild(secondGameSeasonEl);
-
-    // Final adjustment: ensure most sixes today and most runs today is shown correctly inside the card also re-iterate.
-    // In the stats-row we already set. Also we adjust the "who most six" overall season leader already displayed
-    // extra detail: second in the game (mentioned second place team in today match) = runnerUp of today.
-    const runnerToday = todayMatch.runnerUp;
-    const secondGameSpan = document.getElementById("secondInGame");
-    if(secondGameSpan) secondGameSpan.innerHTML = `${runnerToday} (today's runner-up)`;
-    // plus we show season runner-up most times also appears inside card.
-    // Insert second note in the "Today's match" to not confuse.
-    const seasonNote = document.createElement("div");
-    seasonNote.style.fontSize = "0.7rem";
-    seasonNote.style.marginTop = "10px";
-    seasonNote.style.opacity = "0.8";
-    seasonNote.innerHTML = `⭐ Season most runner-up finishes: ${maxRunner.team} (${maxRunner.count} times)`;
-    document.querySelector("#todaysMatchContainer .match-card").appendChild(seasonNote);
-    
-    // Also Ensure toss/winner detail inside all matches list includes toss
-    // plus we rendered matches with toss and winner. All perfect
-    
-    // update points table consistency: ensure NRR formatting
-    // final tweak: show match where today's toss winner etc is consistent.
-    console.log("IPL 2026 Dashboard Loaded. Total matches: "+allMatches.length);
-    
-    // For added user interactivity, show tooltip effect
-    const statBoxes = document.querySelectorAll('.stat-box');
-    statBoxes.forEach(b => b.addEventListener('click', () => { b.style.transform = "scale(0.98)"; setTimeout(()=> b.style.transform = "", 150); }));
+  });
 </script>
 </body>
 </html>
-```
